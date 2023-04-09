@@ -1,0 +1,11 @@
+@use "css/base/variable/mixin" as *;
+
+.comp {
+}
+.img {
+  display: block; // 大きさの指定をするためにblockにする(<img />は初期値がinlineのため)
+  width: 100%; //親要素の幅に合わせる
+  aspect-ratio: 1 / 1; // 縦横比を1:1にする
+  filter: drop-shadow(5px 6px 24px rgba(0, 0, 0, 0.25));
+  border-radius: 21.7px;
+}

@@ -1,0 +1,43 @@
+@use "css/base/variable/mixin" as *;
+@use "css/base/variable/params" as *;
+
+.p-text {
+  font-size: 1.4rem;
+  color: #656565;
+}
+
+textarea,
+input[type], // [type="text"],[type="password"]など[type=]がつくもの全てを指定
+select {
+  padding: 6px 12px;
+  border-radius: 3px;
+  border: 1px solid #ccc;
+  background: #ffffff;
+  appearance: auto;
+}
+
+input[type],
+textarea {
+  border: 1px solid #656565;
+  border-radius: 10px;
+  font-size: 1.4rem;
+  color: #656565;
+
+  &::placeholder {
+    // プレイスホルダー(何も入力されてない時に表示する文字)のスタイル
+    color: #898989;
+  }
+
+  &:focus {
+    // 入力できる状態のときのスタイル
+    border-color: #0391d9;
+  }
+}
+
+input[type] {
+  padding: 16px 10px;
+}
+
+textarea {
+  padding: 8px 10px;
+}

@@ -1,0 +1,236 @@
+@use "sass:math";
+@use "params" as *;
+
+$sp_breakPoint: 744;
+$tb_breakPoint: 960;
+$max_width: 1366;
+
+$develop_spBreakPoint: 1125;
+
+$breakpoints: (
+  // 'sp': 'screen and (max-width: 414px)',
+  "sp": "screen and (max-width: #{$sp_breakPoint - 1}px)",
+  "tb":
+    "screen and (min-width: #{$sp_breakPoint}px) and (max-width: #{$tb_breakPoint}px)",
+  "pc": "screen and (min-width: #{$tb_breakPoint+1}px)",
+  "maxWidth": "screen and (min-width: #{$max_width+1}px)",
+  "notSp": "screen and (min-width: #{$sp_breakPoint}px)",
+  "notPc": "screen and (max-width: #{$tb_breakPoint}px)"
+) !default;
+
+@mixin mq($breakpoint: tb) {
+  @media #{map-get($breakpoints, $breakpoint)} {
+    @content;
+  }
+}
+
+/*---------------------------------
+
+  layout
+
+---------------------------------*/
+
+@mixin autoFit($width) {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, $width);
+  justify-content: center;
+}
+
+/*---------------------------------
+
+  font
+
+---------------------------------*/
+
+@mixin rFontSize($fontSize) {
+  font-size: (math.div(1vw, 12.8) * $fontSize);
+}
+
+@mixin tracking($tracking) {
+  letter-spacing: ($tracking * 0.001) + em;
+}
+
+@mixin lineHeight($lineHeight, $fontSizePt) {
+  line-height: math.div($lineHeight, $fontSizePt);
+}
+
+@mixin lhCrop($line-height, $fontSize: 1em) {
+  &::before {
+    content: "";
+    display: block;
+    height: 0;
+    width: 0;
+    margin-top: calc((1 - #{$line-height}) * ($fontSize * 0.5));
+  }
+
+  &::after {
+    content: "";
+    display: block;
+    height: 0;
+    width: 0;
+    margin-bottom: calc((1 - #{$line-height}) * ($fontSize * 0.5));
+  }
+}
+
+@function tspacer($space, $fontSize, $lineHeightRatio: $baseLineHeight) {
+  @return $space - ($fontSize * $lineHeightRatio - $fontSize) * 0.5px;
+}
+
+@function tspacer_both(
+  $space,
+  $fontSize,
+  $fontSizeBottom,
+  $lineHeightRatio: $baseLineHeight,
+  $lineHeightRatioBottom: $baseLineHeight
+) {
+  $topSpace: ($fontSize * $lineHeightRatio - $fontSize) * 0.5;
+  $bottomSpace: ($fontSizeBottom * $lineHeightRatioBottom - $fontSizeBottom) *
+    0.5;
+
+  @return #{$space - ($topSpace + $bottomSpace)}px;
+}
+
+@mixin themeColor($lightColor, $darkColor, $prop: color) {
+  #{$prop}: $lightColor;
+  @media (prefers-color-scheme: dark) {
+    #{$prop}: $darkColor;
+  }
+}
+
+/*---------------------------------
+
+  common
+
+---------------------------------*/
+@mixin imgFitContainer($paddingTop, $objectFit: "cover") {
+  display: block;
+  position: relative;
+
+  &::before {
+    content: "";
+    display: block;
+    padding-top: $paddingTop;
+  }
+
+  > img,
+  > source,
+  > * {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: #{$objectFit};
+  }
+}
+
+@mixin aspectRatio($paddingTop) {
+  display: block;
+  position: relative;
+
+  &::before {
+    content: "";
+    display: block;
+    padding-top: $paddingTop;
+  }
+
+  > * {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+}
+
+@mixin setListStylePosition {
+  display: flex;
+  align-items: flex-start;
+
+  &::before {
+    content: "●";
+    font-size: 5px;
+    margin-right: 1em;
+    margin-top: calc(1em * 1.5);
+
+    @include mq($breakpoint: sp) {
+      margin-top: calc(1rem * 0.25);
+      font-size: 2px;
+    }
+  }
+}
+
+@mixin dotReader() {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+@mixin dotReaderMultiRow($row, $fontSize, $lineHeight) {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: $row;
+  overflow: hidden;
+  font-size: $fontSize;
+  line-height: $lineHeight;
+  height: $fontSize * $lineHeight * $row;
+}
+
+@mixin scrollBarHidden() {
+  -ms-overflow-style: none; /* IE, Edge 対応 */
+  scrollbar-width: none; /* Firefox 対応 */
+
+  &::-webkit-scrollbar {
+    /* Chrome, Safari 対応 */
+    display: none;
+  }
+}
+
+@mixin forBiddenScroll() {
+  touch-action: none;
+  -webkit-overflow-scrolling: none;
+  overflow: hidden;
+  /* Other browsers */
+  overscroll-behavior: none;
+}
+
+@mixin fullWidth() {
+  margin: 0 calc(50% - 50vw);
+  width: 100vw;
+}
+
+@mixin circle($width, $bg) {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: $width;
+  height: $width;
+  border-radius: 50%;
+  background: $bg;
+}
+
+@mixin layoutSection($maxwidth, $width) {
+  max-width: $maxwidth;
+  width: $width;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/*---------------------------------
+
+  pseudo
+
+---------------------------------*/
+
+@mixin grayBg($zIndex: 1) {
+  &::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to bottom, #59595900, #070707);
+    z-index: $zIndex + 1;
+  }
+}

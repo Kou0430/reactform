@@ -1,0 +1,18 @@
+@use "sass:math";
+
+$baseLineHeight: 1.5;
+
+$themeColors: (
+  "t_main": (
+    "#000000",
+    "#000000",
+  ),
+  "t_sub": (
+    "#848A98",
+    "#FFFFFF",
+  ),
+  "bg_main": (
+    "#ffffff",
+    "#ffffff",
+  ),
+);

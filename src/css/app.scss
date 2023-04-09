@@ -1,0 +1,6 @@
+@use "./base" as *;
+
+#__next {
+  max-width: 600px;
+  margin: 0 auto;
+}

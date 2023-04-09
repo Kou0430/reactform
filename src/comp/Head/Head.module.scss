@@ -1,0 +1,27 @@
+@use "css/base/variable/mixin" as *;
+
+.comp {
+  display: flex;
+  align-items: center;
+  gap: 4px; // 子要素の間のスペース
+}
+
+.head {
+  font-weight: 600;
+  font-size: 1.6rem; // 1rem = 10px。
+}
+
+.imgCircle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  $width: 16px; // Sassでは変数が使える。$widthに16pxを代入している。同じ{}内で$widthを使いまわせる。
+  width: $width;
+  height: $width;
+  background: #0391d9;
+  border-radius: 50%; // 円形にするときは50%を指定と覚えよう！
+}
+
+.img {
+  width: 50%; // 親要素の大きさを変えた場合に連動して大きさを変更するためpxではなく%にする
+}

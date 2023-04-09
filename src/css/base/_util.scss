@@ -1,0 +1,32 @@
+@use "sass:math";
+@use "variable" as *;
+
+.u-linkText {
+  display: inline-block;
+  color: var(--color-base-link);
+  cursor: pointer;
+}
+
+.u-spShow {
+  @include mq($breakpoint: pc) {
+    display: none;
+  }
+
+  @include mq($breakpoint: tb) {
+    display: none;
+  }
+}
+
+.u-fontColor--white {
+  color: #fff;
+}
+
+.u-spShow {
+  @include mq($breakpoint: pc) {
+    display: none;
+  }
+
+  @include mq($breakpoint: tb) {
+    display: none;
+  }
+}

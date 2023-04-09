@@ -1,0 +1,18 @@
+@use "css/base/variable/mixin" as *;
+
+.comp {
+  display: flex;
+  align-items: center; // 親要素の上下中央に子要素を寄せる
+  justify-content: center; // 親要素の左右中央に子要素を寄せる
+  width: 100%;
+  padding: 16px; //figmaではpadding: 16px 120px;となっているが、左右のpaddingは120pxではなく16pxとして、代わりにwidth: 100%とする
+  background: #0391d9;
+  border-radius: 14px;
+}
+
+.text {
+  font-weight: 600;
+  font-size: 1.6rem;
+  letter-spacing: -0.02em;
+  color: #f3f5f6;
+}
